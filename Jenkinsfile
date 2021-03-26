@@ -13,4 +13,4 @@ podTemplate(label: label, cloud: 'kubernetes', containers: [
             }
         }
     }
-
+}
