@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: monster-data-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+  selector:
+    app: app-monster-data
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monster-data
+spec:
+  minReadySeconds: 30
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: app-monster-data
+  template:
+    metadata:
+      labels:
+        app: app-monster-data
+    spec:
+      containers:
+        - name: monster-data
+          image: 127.0.0.1:5000/monster-data:2.0
+          ports:
+            - containerPort: 8080
+
+
